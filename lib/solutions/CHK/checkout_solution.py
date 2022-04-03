@@ -9,7 +9,7 @@ def checkout(all_skus):
         return -1
 
     frequencies = Counter()
-    for sku in all_skus.lower():
+    for sku in all_skus:
         frequencies[sku] += 1
 
     return sum(price(sku, count) for sku, count in frequencies.most_common())
@@ -17,11 +17,12 @@ def checkout(all_skus):
 
 def price(sku, count):
     if sku == "A":
-        return (count / 3) * 130 + (count % 3) * prices[sku]
+        return count // 3 * 130 + (count % 3) * prices[sku]
     elif sku == "B":
-        return (count / 2) * 45 + (count % 2) * prices[sku]
+        return count // 2 * 45 + (count % 2) * prices[sku]
     else:
         return prices[sku]
+
 
 
 
