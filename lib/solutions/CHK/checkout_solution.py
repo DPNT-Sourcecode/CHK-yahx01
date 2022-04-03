@@ -1,6 +1,6 @@
 from collections import Counter
 
-prices = {"A": 50, "B": 30, "C": 20, "D": 15}
+prices = {"A": 50, "B": 30, "C": 20, "D": 15, "E": 40}
 
 # noinspection PyUnusedLocal
 # skus = unicode string
@@ -12,8 +12,6 @@ def checkout(all_skus):
     for sku in all_skus:
         frequencies[sku] += 1
 
-    print(frequencies.most_common())
-
     return sum(price(sku, count) for sku, count in frequencies.most_common())
 
 
@@ -24,4 +22,9 @@ def price(sku, count):
         return ((count // 2) * 45) + ((count % 2) * prices[sku])
     else:
         return prices[sku] * count
+
+
+def normal_prices(counter):
+    return sum(prices[sku] * count for sku, count in frequencies.most_common())
+
 
