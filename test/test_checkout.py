@@ -37,4 +37,6 @@ class TestCheckout(unittest.TestCase):
         self.assertEqual(checkout_solution.checkout("ST"), 40)
         self.assertEqual(checkout_solution.checkout("STX"), 45)
         self.assertEqual(checkout_solution.checkout("ZZZX"), 62)
+        self.assertEqual(checkout_solution.checkout("ZXXX"), 62)
+
 
