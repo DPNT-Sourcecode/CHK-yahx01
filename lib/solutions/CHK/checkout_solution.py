@@ -29,6 +29,13 @@ prices = {
     "Z": 50,
 }
 
+bundles = [
+    ("A", 5, 200),
+    ("A", 3, 130),
+    ("B", 2, 45),
+    ("F", 3, 20),
+]
+
 # noinspection PyUnusedLocal
 # skus = unicode string
 def checkout(all_skus):
@@ -58,8 +65,26 @@ def special_offers(counter):
 
     counter["F"] -= counter["F"] // 3
 
+    # 5H for 45, 10H for 80
+    yield counter["H"]
+| I    | 35    |                        |
+| J    | 60    |                        |
+| K    | 80    | 2K for 150             |
+| L    | 90    |                        |
+| M    | 15    |                        |
+| N    | 40    | 3N get one M free      |
+| O    | 10    |                        |
+| P    | 50    | 5P for 200             |
+| Q    | 30    | 3Q for 80              |
+| R    | 50    | 3R get one Q free      |
+| S    | 30    |                        |
+| T    | 20    |                        |
+| U    | 40    | 3U get one U free      |
+| V    | 50    | 2V for 90, 3V for 130  |
+
 
 def normal_prices(counter):
     yield from (prices[sku] * count for sku, count in counter.most_common())
+
 
 
