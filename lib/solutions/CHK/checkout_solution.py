@@ -55,7 +55,11 @@ def checkout(all_skus):
         counter[sku] += 1
 
     apply_special_offers(counter)
-    return sum(bundle_prices(counter)) + sum(normal_prices(counter))
+    return (
+        sum(group_discounts(counter))
+        + sum(bundle_prices(counter))
+        + sum(normal_prices(counter))
+    )
 
 
 def apply_special_offers(counter):
@@ -68,9 +72,27 @@ def apply_special_offers(counter):
     # 3N get one M free
     counter["M"] = max(0, counter["M"] - counter["N"] // 3)
 
+
 def group_discounts(counter):
+    for group in list(groupings(counter)):
+        yield 45
+        for sku, amount in group:
+            counter[sku] -= amount
+
+
+def groupings(counter):
+    stack = []
     # NOTE these are in decreasing order of price, update if prices change
     for sku in "ZYSTX":
+        total = sum(count for _, count in stack)
+        required = 3 - total
+        if required <= counter[sku]:
+            stack.push((sku, required))
+            yield total
+            stack = [(sku, counter[sku] - required)]
+        else:
+            stack.push((sku, counter[sku]))
+
 
 def bundle_prices(counter):
     for sku, count, amount in bundles:
@@ -80,5 +102,6 @@ def bundle_prices(counter):
 
 def normal_prices(counter):
     yield from (prices[sku] * count for sku, count in counter.most_common())
+
 
 
