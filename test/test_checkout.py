@@ -24,4 +24,11 @@ class TestCheckout(unittest.TestCase):
         self.assertEqual(checkout_solution.checkout("AAAAAA"), 250)
         self.assertEqual(checkout_solution.checkout("AAAAAAA"), 300)
 
-
+    def test_f(self):
+        self.assertEqual(checkout_solution.checkout("F"), 10)
+        self.assertEqual(checkout_solution.checkout("FF"), 20)
+        self.assertEqual(checkout_solution.checkout("FFF"), 20)
+        self.assertEqual(checkout_solution.checkout("FFFF"), 30)
+        self.assertEqual(checkout_solution.checkout("FFFFF"), 40)
+        self.assertEqual(checkout_solution.checkout("FFFFFF"), 40)
+        self.assertEqual(checkout_solution.checkout("FFFFFFF"), 50)

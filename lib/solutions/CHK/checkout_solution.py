@@ -1,6 +1,6 @@
 from collections import Counter
 
-prices = {"A": 50, "B": 30, "C": 20, "D": 15, "E": 40}
+prices = {"A": 50, "B": 30, "C": 20, "D": 15, "E": 40, "F": 10}
 
 # noinspection PyUnusedLocal
 # skus = unicode string
@@ -29,12 +29,9 @@ def special_offers(counter):
         yield (counter["B"] // 2) * 45
         counter["B"] %= 2
 
+    counter["F"] -= counter["F"] // 3
+
 
 def normal_prices(counter):
     yield from (prices[sku] * count for sku, count in counter.most_common())
-
-
-
-
-
 
