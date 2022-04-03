@@ -5,7 +5,7 @@ prices = {"A": 50, "B": 30, "C": 20, "D": 15}
 # noinspection PyUnusedLocal
 # skus = unicode string
 def checkout(skus):
-    if not skus.isalpha():
+    if any(c not in prices.keys() for c in skus):
         return -1
 
     frequencies = Counter()
@@ -15,5 +15,6 @@ def checkout(skus):
 
 def is_latin_alphabet(letter):
     return
+
 
 
