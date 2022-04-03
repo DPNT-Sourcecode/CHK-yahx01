@@ -23,11 +23,5 @@ def price(sku, count):
     elif sku == "B":
         return ((count // 2) * 45) + ((count % 2) * prices[sku])
     else:
-        return prices[sku]
-
-
-
-
-
-
+        return prices[sku] * count
 

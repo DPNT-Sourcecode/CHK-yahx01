@@ -11,5 +11,3 @@ class TestCheckout(unittest.TestCase):
         self.assertEqual(checkout_solution.checkout("ABCDABCD"), 215)
         self.assertEqual(checkout_solution.checkout("BABDDCAC"), 215)
         self.assertEqual(checkout_solution.checkout("ABCDCBAABCABBAAA"), 505)
-
-
