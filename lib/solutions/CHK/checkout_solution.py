@@ -16,15 +16,20 @@ def checkout(all_skus):
 
 
 def price(sku, count):
-    if sku == "A":
-        return ((count // 3) * 130) + ((count % 3) * prices[sku])
-    elif sku == "B":
-        return ((count // 2) * 45) + ((count % 2) * prices[sku])
-    else:
-        return prices[sku] * count
+    return special_offers(counter) + normal_prices(counter)
+
+
+def special_offers(counter):
+    if counter["A"]:
+        yield (counter["A"] // 3) * 130
+        counter["A"] %= 3
+    if counter["B"]:
+        yield (counter["B"] // 2) * 130
+        counter["B"] %= 2
 
 
 def normal_prices(counter):
     return sum(prices[sku] * count for sku, count in frequencies.most_common())
+
 
 
