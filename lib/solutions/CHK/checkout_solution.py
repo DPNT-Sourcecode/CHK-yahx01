@@ -54,28 +54,19 @@ def checkout(all_skus):
     for sku in all_skus:
         counter[sku] += 1
 
-    return (
-        sum(special_offers(counter))
-        + sum(bundle_prices(counter))
-        + sum(normal_prices(counter))
-    )
+    apply_special_offers(counter)
+    return sum(bundle_prices(counter)) + sum(normal_prices(counter))
 
 
-def special_offers(counter):
-    if counter["A"]:
-        yield (counter["A"] // 5) * 200
-        counter["A"] %= 5
-        yield (counter["A"] // 3) * 130
-        counter["A"] %= 3
-
-    # Get a free B with every 2 E
+def apply_special_offers(counter):
+    # 2E get one B free
     counter["B"] = max(0, counter["B"] - counter["E"] // 2)
 
-    if counter["B"]:
-        yield (counter["B"] // 2) * 45
-        counter["B"] %= 2
+    # 3R get one Q free
+    counter["Q"] = max(0, counter["Q"] - counter["R"] // 3)
 
-    counter["F"] -= counter["F"] // 3
+    # 3N get one M free
+    counter["M"] = max(0, counter["M"] - counter["N"] // 3)
 
 
 def bundle_prices(counter):
@@ -86,6 +77,7 @@ def bundle_prices(counter):
 
 def normal_prices(counter):
     yield from (prices[sku] * count for sku, count in counter.most_common())
+
 
 
 
