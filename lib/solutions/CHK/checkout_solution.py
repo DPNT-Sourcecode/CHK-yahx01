@@ -17,6 +17,8 @@ def checkout(all_skus):
 
 def special_offers(counter):
     if counter["A"]:
+        yield (counter["A"] // 5) * 200
+        counter["A"] %= 5
         yield (counter["A"] // 3) * 130
         counter["A"] %= 3
 
@@ -30,6 +32,7 @@ def special_offers(counter):
 
 def normal_prices(counter):
     yield from (prices[sku] * count for sku, count in counter.most_common())
+
 
 
 
