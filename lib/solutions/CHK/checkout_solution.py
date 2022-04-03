@@ -87,11 +87,11 @@ def groupings(counter):
         total = sum(count for _, count in stack)
         required = 3 - total
         if required <= counter[sku]:
-            stack.push((sku, required))
-            yield total
+            stack += (sku, required)
+            yield stack
             stack = [(sku, counter[sku] - required)]
         else:
-            stack.push((sku, counter[sku]))
+            stack += (sku, counter[sku])
 
 
 def bundle_prices(counter):
@@ -102,6 +102,7 @@ def bundle_prices(counter):
 
 def normal_prices(counter):
     yield from (prices[sku] * count for sku, count in counter.most_common())
+
 
 
 

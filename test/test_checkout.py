@@ -32,3 +32,9 @@ class TestCheckout(unittest.TestCase):
         self.assertEqual(checkout_solution.checkout("FFFFF"), 40)
         self.assertEqual(checkout_solution.checkout("FFFFFF"), 40)
         self.assertEqual(checkout_solution.checkout("FFFFFFF"), 50)
+
+    def test_group_discounts(self):
+        self.assertEqual(checkout_solution.checkout("ST"), 40)
+        self.assertEqual(checkout_solution.checkout("STX"), 45)
+        self.assertEqual(checkout_solution.checkout("ZZZX"), 62)
+
