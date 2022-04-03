@@ -68,6 +68,9 @@ def apply_special_offers(counter):
     # 3N get one M free
     counter["M"] = max(0, counter["M"] - counter["N"] // 3)
 
+def group_discounts(counter):
+    # NOTE these are in decreasing order of price, update if prices change
+    for sku in "ZYSTX":
 
 def bundle_prices(counter):
     for sku, count, amount in bundles:
@@ -77,4 +80,5 @@ def bundle_prices(counter):
 
 def normal_prices(counter):
     yield from (prices[sku] * count for sku, count in counter.most_common())
+
 
