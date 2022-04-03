@@ -34,6 +34,14 @@ bundles = [
     ("A", 3, 130),
     ("B", 2, 45),
     ("F", 3, 20),
+    ("H", 10, 80),
+    ("H", 5, 45),
+    ("K", 2, 150),
+    ("P", 5, 200),
+    ("Q", 3, 80),
+    ("U", 3, 80),
+    ("V", 3, 130),
+    ("V", 2, 90),
 ]
 
 # noinspection PyUnusedLocal
@@ -46,7 +54,11 @@ def checkout(all_skus):
     for sku in all_skus:
         counter[sku] += 1
 
-    return sum(special_offers(counter)) + sum(normal_prices(counter))
+    return (
+        sum(special_offers(counter))
+        + sum(bundle_prices(counter))
+        + sum(normal_prices(counter))
+    )
 
 
 def special_offers(counter):
@@ -65,26 +77,16 @@ def special_offers(counter):
 
     counter["F"] -= counter["F"] // 3
 
-    # 5H for 45, 10H for 80
-    yield counter["H"]
-| I    | 35    |                        |
-| J    | 60    |                        |
-| K    | 80    | 2K for 150             |
-| L    | 90    |                        |
-| M    | 15    |                        |
-| N    | 40    | 3N get one M free      |
-| O    | 10    |                        |
-| P    | 50    | 5P for 200             |
-| Q    | 30    | 3Q for 80              |
-| R    | 50    | 3R get one Q free      |
-| S    | 30    |                        |
-| T    | 20    |                        |
-| U    | 40    | 3U get one U free      |
-| V    | 50    | 2V for 90, 3V for 130  |
+
+def bundle_prices(counter):
+    for sku, count, amount in bundles:
+        yield (counter[sku] // count) * amount
+        counter[sku] %= count
 
 
 def normal_prices(counter):
     yield from (prices[sku] * count for sku, count in counter.most_common())
+
 
 
 
