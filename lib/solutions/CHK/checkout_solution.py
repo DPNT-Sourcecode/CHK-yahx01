@@ -39,7 +39,7 @@ bundles = [
     ("K", 2, 150),
     ("P", 5, 200),
     ("Q", 3, 80),
-    ("U", 3, 80),
+    ("U", 4, 120),
     ("V", 3, 130),
     ("V", 2, 90),
 ]
@@ -77,6 +77,7 @@ def bundle_prices(counter):
 
 def normal_prices(counter):
     yield from (prices[sku] * count for sku, count in counter.most_common())
+
 
 
 
