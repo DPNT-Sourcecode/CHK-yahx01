@@ -29,8 +29,8 @@ def special_offers(counter):
 
 
 def normal_prices(counter):
-    print(counter.most_common())
     yield from (prices[sku] * count for sku, count in counter.most_common())
+
 
 
 
